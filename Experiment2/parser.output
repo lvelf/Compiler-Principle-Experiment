@@ -1,0 +1,714 @@
+State 49 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: StmList
+
+    2 StmList: /* empty */
+    3        | Stmt StmList
+
+    4 CompSt: LC StmList RC
+
+    5 Stmt: MatchStmt
+    6     | OpenStmt
+
+    7 MatchStmt: Exp4 SEMI
+    8          | CompSt
+    9          | SCAN ID SEMI
+   10          | PRINT Exp4 SEMI
+   11          | WHILE LP Exp4 RP Stmt
+   12          | IF LP Exp4 RP MatchStmt ELSE MatchStmt
+
+   13 OpenStmt: IF LP Exp4 RP Stmt
+   14         | IF LP Exp4 RP MatchStmt ELSE OpenStmt
+
+   15 Exp0: INT
+   16     | FLOAT
+   17     | ID
+   18     | LP Exp4 RP
+   19     | OP2 Exp0
+
+   20 Exp1: Exp0
+   21     | Exp1 OP1 Exp0
+
+   22 Exp2: Exp1
+   23     | Exp2 OP2 Exp1
+
+   24 Exp3: Exp2
+   25     | Exp3 OP3 Exp2
+
+   26 Exp4: Exp3
+   27     | Exp4 OP4 Exp3
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ID (258) 9 17
+INT (259) 15
+FLOAT (260) 16
+IF (261) 12 13 14
+ELSE (262) 12 14
+WHILE (263) 11
+LC (264) 4
+RC (265) 4
+SEMI (266) 7 9 10
+SCAN (267) 9
+PRINT (268) 10
+LP (269) 11 12 13 14 18
+RP (270) 11 12 13 14 18
+OP1 (271) 21
+OP2 (272) 19 23
+OP3 (273) 25
+OP4 (274) 27
+
+
+Nonterminals, with rules where they appear
+
+$accept (20)
+    on left: 0
+program (21)
+    on left: 1, on right: 0
+StmList (22)
+    on left: 2 3, on right: 1 3 4
+CompSt (23)
+    on left: 4, on right: 8
+Stmt (24)
+    on left: 5 6, on right: 3 11 13
+MatchStmt (25)
+    on left: 7 8 9 10 11 12, on right: 5 12 14
+OpenStmt (26)
+    on left: 13 14, on right: 6 14
+Exp0 (27)
+    on left: 15 16 17 18 19, on right: 19 20 21
+Exp1 (28)
+    on left: 20 21, on right: 21 22 23
+Exp2 (29)
+    on left: 22 23, on right: 23 24 25
+Exp3 (30)
+    on left: 24 25, on right: 25 26 27
+Exp4 (31)
+    on left: 26 27, on right: 7 10 11 12 13 14 18 27
+
+
+state 0
+
+    0 $accept: . program $end
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    $default  reduce using rule 2 (StmList)
+
+    program    go to state 11
+    StmList    go to state 12
+    CompSt     go to state 13
+    Stmt       go to state 14
+    MatchStmt  go to state 15
+    OpenStmt   go to state 16
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 1
+
+   17 Exp0: ID .
+
+    $default  reduce using rule 17 (Exp0)
+
+
+state 2
+
+   15 Exp0: INT .
+
+    $default  reduce using rule 15 (Exp0)
+
+
+state 3
+
+   16 Exp0: FLOAT .
+
+    $default  reduce using rule 16 (Exp0)
+
+
+state 4
+
+   12 MatchStmt: IF . LP Exp4 RP MatchStmt ELSE MatchStmt
+   13 OpenStmt: IF . LP Exp4 RP Stmt
+   14         | IF . LP Exp4 RP MatchStmt ELSE OpenStmt
+
+    LP  shift, and go to state 22
+
+
+state 5
+
+   11 MatchStmt: WHILE . LP Exp4 RP Stmt
+
+    LP  shift, and go to state 23
+
+
+state 6
+
+    4 CompSt: LC . StmList RC
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    $default  reduce using rule 2 (StmList)
+
+    StmList    go to state 24
+    CompSt     go to state 13
+    Stmt       go to state 14
+    MatchStmt  go to state 15
+    OpenStmt   go to state 16
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 7
+
+    9 MatchStmt: SCAN . ID SEMI
+
+    ID  shift, and go to state 25
+
+
+state 8
+
+   10 MatchStmt: PRINT . Exp4 SEMI
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 19
+    Exp3  go to state 20
+    Exp4  go to state 26
+
+
+state 9
+
+   18 Exp0: LP . Exp4 RP
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 19
+    Exp3  go to state 20
+    Exp4  go to state 27
+
+
+state 10
+
+   19 Exp0: OP2 . Exp0
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 28
+
+
+state 11
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 29
+
+
+state 12
+
+    1 program: StmList .
+
+    $default  reduce using rule 1 (program)
+
+
+state 13
+
+    8 MatchStmt: CompSt .
+
+    $default  reduce using rule 8 (MatchStmt)
+
+
+state 14
+
+    3 StmList: Stmt . StmList
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    $default  reduce using rule 2 (StmList)
+
+    StmList    go to state 30
+    CompSt     go to state 13
+    Stmt       go to state 14
+    MatchStmt  go to state 15
+    OpenStmt   go to state 16
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 15
+
+    5 Stmt: MatchStmt .
+
+    $default  reduce using rule 5 (Stmt)
+
+
+state 16
+
+    6 Stmt: OpenStmt .
+
+    $default  reduce using rule 6 (Stmt)
+
+
+state 17
+
+   20 Exp1: Exp0 .
+
+    $default  reduce using rule 20 (Exp1)
+
+
+state 18
+
+   21 Exp1: Exp1 . OP1 Exp0
+   22 Exp2: Exp1 .
+
+    OP1  shift, and go to state 31
+
+    $default  reduce using rule 22 (Exp2)
+
+
+state 19
+
+   23 Exp2: Exp2 . OP2 Exp1
+   24 Exp3: Exp2 .
+
+    OP2  shift, and go to state 32
+
+    $default  reduce using rule 24 (Exp3)
+
+
+state 20
+
+   25 Exp3: Exp3 . OP3 Exp2
+   26 Exp4: Exp3 .
+
+    OP3  shift, and go to state 33
+
+    $default  reduce using rule 26 (Exp4)
+
+
+state 21
+
+    7 MatchStmt: Exp4 . SEMI
+   27 Exp4: Exp4 . OP4 Exp3
+
+    SEMI  shift, and go to state 34
+    OP4   shift, and go to state 35
+
+
+state 22
+
+   12 MatchStmt: IF LP . Exp4 RP MatchStmt ELSE MatchStmt
+   13 OpenStmt: IF LP . Exp4 RP Stmt
+   14         | IF LP . Exp4 RP MatchStmt ELSE OpenStmt
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 19
+    Exp3  go to state 20
+    Exp4  go to state 36
+
+
+state 23
+
+   11 MatchStmt: WHILE LP . Exp4 RP Stmt
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 19
+    Exp3  go to state 20
+    Exp4  go to state 37
+
+
+state 24
+
+    4 CompSt: LC StmList . RC
+
+    RC  shift, and go to state 38
+
+
+state 25
+
+    9 MatchStmt: SCAN ID . SEMI
+
+    SEMI  shift, and go to state 39
+
+
+state 26
+
+   10 MatchStmt: PRINT Exp4 . SEMI
+   27 Exp4: Exp4 . OP4 Exp3
+
+    SEMI  shift, and go to state 40
+    OP4   shift, and go to state 35
+
+
+state 27
+
+   18 Exp0: LP Exp4 . RP
+   27 Exp4: Exp4 . OP4 Exp3
+
+    RP   shift, and go to state 41
+    OP4  shift, and go to state 35
+
+
+state 28
+
+   19 Exp0: OP2 Exp0 .
+
+    $default  reduce using rule 19 (Exp0)
+
+
+state 29
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 30
+
+    3 StmList: Stmt StmList .
+
+    $default  reduce using rule 3 (StmList)
+
+
+state 31
+
+   21 Exp1: Exp1 OP1 . Exp0
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 42
+
+
+state 32
+
+   23 Exp2: Exp2 OP2 . Exp1
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 43
+
+
+state 33
+
+   25 Exp3: Exp3 OP3 . Exp2
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 44
+
+
+state 34
+
+    7 MatchStmt: Exp4 SEMI .
+
+    $default  reduce using rule 7 (MatchStmt)
+
+
+state 35
+
+   27 Exp4: Exp4 OP4 . Exp3
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    Exp0  go to state 17
+    Exp1  go to state 18
+    Exp2  go to state 19
+    Exp3  go to state 45
+
+
+state 36
+
+   12 MatchStmt: IF LP Exp4 . RP MatchStmt ELSE MatchStmt
+   13 OpenStmt: IF LP Exp4 . RP Stmt
+   14         | IF LP Exp4 . RP MatchStmt ELSE OpenStmt
+   27 Exp4: Exp4 . OP4 Exp3
+
+    RP   shift, and go to state 46
+    OP4  shift, and go to state 35
+
+
+state 37
+
+   11 MatchStmt: WHILE LP Exp4 . RP Stmt
+   27 Exp4: Exp4 . OP4 Exp3
+
+    RP   shift, and go to state 47
+    OP4  shift, and go to state 35
+
+
+state 38
+
+    4 CompSt: LC StmList RC .
+
+    $default  reduce using rule 4 (CompSt)
+
+
+state 39
+
+    9 MatchStmt: SCAN ID SEMI .
+
+    $default  reduce using rule 9 (MatchStmt)
+
+
+state 40
+
+   10 MatchStmt: PRINT Exp4 SEMI .
+
+    $default  reduce using rule 10 (MatchStmt)
+
+
+state 41
+
+   18 Exp0: LP Exp4 RP .
+
+    $default  reduce using rule 18 (Exp0)
+
+
+state 42
+
+   21 Exp1: Exp1 OP1 Exp0 .
+
+    $default  reduce using rule 21 (Exp1)
+
+
+state 43
+
+   21 Exp1: Exp1 . OP1 Exp0
+   23 Exp2: Exp2 OP2 Exp1 .
+
+    OP1  shift, and go to state 31
+
+    $default  reduce using rule 23 (Exp2)
+
+
+state 44
+
+   23 Exp2: Exp2 . OP2 Exp1
+   25 Exp3: Exp3 OP3 Exp2 .
+
+    OP2  shift, and go to state 32
+
+    $default  reduce using rule 25 (Exp3)
+
+
+state 45
+
+   25 Exp3: Exp3 . OP3 Exp2
+   27 Exp4: Exp4 OP4 Exp3 .
+
+    OP3  shift, and go to state 33
+
+    $default  reduce using rule 27 (Exp4)
+
+
+state 46
+
+   12 MatchStmt: IF LP Exp4 RP . MatchStmt ELSE MatchStmt
+   13 OpenStmt: IF LP Exp4 RP . Stmt
+   14         | IF LP Exp4 RP . MatchStmt ELSE OpenStmt
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    CompSt     go to state 13
+    Stmt       go to state 48
+    MatchStmt  go to state 49
+    OpenStmt   go to state 16
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 47
+
+   11 MatchStmt: WHILE LP Exp4 RP . Stmt
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    CompSt     go to state 13
+    Stmt       go to state 50
+    MatchStmt  go to state 15
+    OpenStmt   go to state 16
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 48
+
+   13 OpenStmt: IF LP Exp4 RP Stmt .
+
+    $default  reduce using rule 13 (OpenStmt)
+
+
+state 49
+
+    5 Stmt: MatchStmt .
+   12 MatchStmt: IF LP Exp4 RP MatchStmt . ELSE MatchStmt
+   14 OpenStmt: IF LP Exp4 RP MatchStmt . ELSE OpenStmt
+
+    ELSE  shift, and go to state 51
+
+    ELSE      [reduce using rule 5 (Stmt)]
+    $default  reduce using rule 5 (Stmt)
+
+
+state 50
+
+   11 MatchStmt: WHILE LP Exp4 RP Stmt .
+
+    $default  reduce using rule 11 (MatchStmt)
+
+
+state 51
+
+   12 MatchStmt: IF LP Exp4 RP MatchStmt ELSE . MatchStmt
+   14 OpenStmt: IF LP Exp4 RP MatchStmt ELSE . OpenStmt
+
+    ID     shift, and go to state 1
+    INT    shift, and go to state 2
+    FLOAT  shift, and go to state 3
+    IF     shift, and go to state 4
+    WHILE  shift, and go to state 5
+    LC     shift, and go to state 6
+    SCAN   shift, and go to state 7
+    PRINT  shift, and go to state 8
+    LP     shift, and go to state 9
+    OP2    shift, and go to state 10
+
+    CompSt     go to state 13
+    MatchStmt  go to state 52
+    OpenStmt   go to state 53
+    Exp0       go to state 17
+    Exp1       go to state 18
+    Exp2       go to state 19
+    Exp3       go to state 20
+    Exp4       go to state 21
+
+
+state 52
+
+   12 MatchStmt: IF LP Exp4 RP MatchStmt ELSE MatchStmt .
+
+    $default  reduce using rule 12 (MatchStmt)
+
+
+state 53
+
+   14 OpenStmt: IF LP Exp4 RP MatchStmt ELSE OpenStmt .
+
+    $default  reduce using rule 14 (OpenStmt)

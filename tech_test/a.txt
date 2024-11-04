@@ -1,0 +1,5 @@
+ok1
+!#@whilewhile
+ok2
+ No of words: 5
+  number: 3
